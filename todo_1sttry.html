@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <style>
+        body {
+            background-image: url('todo.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .container {
+            margin-left: 250px;
+            margin-top: 270px;
+
+        }
+
+        input {
+            width: 500px;
+            height: 50px;
+            padding-left: 20px;
+            font-size: 17px;
+            font-weight: 500;
+            border: 4px black solid;
+        }
+
+        button {
+            border: 4px black solid;
+            background-color: rgb(92, 92, 240);
+            color: cornsilk;
+            padding-top: 9px;
+            padding-bottom: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        ul {
+
+            margin-left: -20px;
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form">
+            <form onsubmit="submitHandler()">
+                <input type="text" placeholder="Enter new task" id="input" required>
+                <button type="submit" id="submitButton"> ADD + </button>
+
+                
+            </form>
+            <button id="click" onclick="clickHandler()">DELETE TASK</button>
+
+            <ul id="addTasks">
+
+            </ul>
+        </div>
+    </div>
+    <script>
+        let list = [];
+        let ul = document.getElementById("addTasks");
+        function submitHandler() {
+            event.preventDefault();
+            list.push(document.getElementById("input").value)
+            let liTag = "<br>";
+            for (i = 0; i < list.length; i++) {
+                let task = "<li>" + list[i] + "</li>" + "<br>" ;
+                liTag += task;
+
+            };
+
+            ul.innerHTML = liTag;
+        };
+       
+        function clickHandler() {
+
+            list.shift();
+            
+            let liTag1 = "";
+            for (j = 0; j < list.length; j++) {
+                let task1 = "<li>" + list[j] + "&nbsp;&nbsp;&#x1F5D1;"+"</li>" + "<br>";
+                liTag1 += task1;
+
+            };
+            
+            ul.innerHTML = liTag1;
+        }
+        
+    </script>
+</body>
+
+</html>
