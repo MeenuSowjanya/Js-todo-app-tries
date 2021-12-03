@@ -50,9 +50,9 @@
                 <input type="text" placeholder="Enter new task" id="input" required>
                 <button type="submit" id="submitButton"> ADD + </button>
 
-                
+
             </form>
-            <button id="click" onclick="clickHandler()">DELETE TASK</button>
+            <button id="click" onclick="deleteAllTask()">DELETE ALL TASKS</button>
 
             <ul id="addTasks">
 
@@ -61,34 +61,48 @@
     </div>
     <script>
         let list = [];
-        let ul = document.getElementById("addTasks");
-        function submitHandler() {
-            event.preventDefault();
-            list.push(document.getElementById("input").value)
+        function getAllTasks() {
+            const arrayToString = localStorage.getItem("tasks");
+            const inArray = JSON.parse(arrayToString);
+            return inArray;
+        }
+        function deleteAllTask() {
+            localStorage.setItem("tasks", [])
+            let ul = document.getElementById("addTasks");
+            ul.innerHTML = "";
+        }
+        function updateTasks(task) {
+            list.push(task);
+            const arrayToString = JSON.stringify(list);
+            localStorage.setItem("tasks", arrayToString);
+        }
+        function renderList() {
             let liTag = "<br>";
             for (i = 0; i < list.length; i++) {
-                let task = "<li>" + list[i] + "</li>" + "<br>" ;
-                liTag += task;
+                let task = "<li>" + list[i] + "</li>" + "<br>";
+                liTag += task; //litag=litag+task
 
             };
-
+            let ul = document.getElementById("addTasks");
             ul.innerHTML = liTag;
-        };
-       
-        function clickHandler() {
 
-            list.shift();
-            
-            let liTag1 = "";
-            for (j = 0; j < list.length; j++) {
-                let task1 = "<li>" + list[j] + "&nbsp;&nbsp;&#x1F5D1;"+"</li>" + "<br>";
-                liTag1 += task1;
-
-            };
-            
-            ul.innerHTML = liTag1;
         }
-        
+        function submitHandler() {
+            event.preventDefault();
+            let input = document.getElementById("input");
+            updateTasks(input.value);
+            renderList();
+        };
+        function pageOnLoadHandler() {
+            const allTasks = getAllTasks();//allTasks=[Task1,Task2]
+            list = allTasks;
+            renderList();
+        }
+        pageOnLoadHandler();
+
+        //We need to display in the ul -->user input
+        //Already stored data , we need to keep in local storage
+        //If the user presses delete tasks everything should be deleted from the local storage
     </script>
 </body>
 
