@@ -80,7 +80,7 @@
             let liTag = "<br>";
             for (i = 0; i < list.length; i++) {
                 let task = "<li>" + list[i] + "</li>" + "<br>";
-                liTag += task; //litag=litag+task
+                liTag += task; 
 
             };
             let ul = document.getElementById("addTasks");
@@ -94,15 +94,12 @@
             renderList();
         };
         function pageOnLoadHandler() {
-            const allTasks = getAllTasks();//allTasks=[Task1,Task2]
+            const allTasks = getAllTasks();
             list = allTasks;
             renderList();
         }
         pageOnLoadHandler();
 
-        //We need to display in the ul -->user input
-        //Already stored data , we need to keep in local storage
-        //If the user presses delete tasks everything should be deleted from the local storage
     </script>
 </body>
 
